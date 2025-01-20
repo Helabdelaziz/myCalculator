@@ -1,12 +1,15 @@
+class Calculator {
+  addition(x, y) {
+    return x + y;
+  }
+}
 function add(x, y) {
   // this is commment message
   return x + y;
 }
 
-class Calculator {
-  addition(x, y) {
-    return x + y;
-  }
+function sub(x, y) {
+  return x - y;
 }
 
 function mult(x, y) {
