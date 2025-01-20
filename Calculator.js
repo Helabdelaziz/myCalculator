@@ -16,6 +16,10 @@ function mult(x, y) {
   return x * y;
 }
 
+function sub(x, y) {
+  return y - x;
+}
+
 function div(x, y) {
   if (x == 0) {
     throw EvalError("can't divide on 0");
