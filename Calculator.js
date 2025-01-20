@@ -1,6 +1,8 @@
 function add(x, y) {
   // this is commment message
   return x + y;
+}
+
 class Calculator {
   addition(x, y) {
     return x + y;
@@ -17,8 +19,4 @@ function div(x, y) {
   } else {
     return x / y;
   }
-}
-
-function abs(res) {
-  return abs(res);
 }
