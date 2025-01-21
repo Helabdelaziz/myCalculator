@@ -5,84 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <style>
-    .ready {
-      background-color: #ddd;
-      color: red;
-      text-decoration: line-through;
-    }
-  </style>
   <body>
-    <div class="main">
-      <input
-        type="text"
-        placeholder="New item"
-        value="test item"
-        maxlength="30"
-      />
-      <button>Add</button>
-    </div>
-    <ul class="output"></ul>
+    <textarea rows="2" cols="50" name="txt1"></textarea>
+    <button>Search emails</button>
+    <textarea rows="2" cols="50" name="txt2"></textarea>
   </body>
   <script>
-    let inputText = document.querySelector(".main input");
-    let addBtn = document.querySelector(".main button");
-    let itemList = document.querySelector(".output");
+    let userInput = document.querySelector("textarea[name=txt1]");
+    let btn = document.querySelector("button");
+    let searchOutput = document.querySelector("textarea[name=txt2]");
+    let emailRe = /[a-zA-Z0-9]+@+[a-zA-Z0-9].+[a-zA-Z0-9]/;
 
-    let tasks = JSON.parse(localStorage.getItem("tasklist")) || [];
-    addBtn.addEventListener("click", createListItem);
-
-    if (tasks.length > 0) {
-      tasks.forEach((task) => {
-        genItem(task.val, task.checked);
-      });
+    btn.addEventListener("click", outputEmails);
+    function findEmail(input) {
+      let emailRe = /[a-zA-Z0-9]+@+[a-zA-Z0-9]+.[a-zA-Z0-9]+/;
+      let emailMathches = input.match(emailRe);
+      return emailMathches[0];
     }
-
-    function saveTask() {
-      localStorage.setItem("tasklist", JSON.stringify(tasks));
-    }
-
-    function buildTasks() {
-      tasks.length = 0;
-      const curList = itemList.querySelectorAll("li");
-      curList.forEach((el) => {
-        const tempTask = {
-          val: el.textContent,
-          checked: false,
-        };
-        if (el.classList.contains("ready")) {
-          tempTask.checked = true;
-        }
-      });
-      saveTask();
-    }
-
-    function genItem(val, complete) {
-      const li = document.createElement("li");
-      const temp = document.createTextNode(val);
-      li.appendChild(temp);
-      itemList.append(li);
-      inputText.value = "";
-      if (complete) {
-        li.classList.add("ready");
-      }
-      li.addEventListener("click", (e) => {
-        li.classList.toggle("ready");
-        buildTasks();
-      });
-      return val;
-    }
-
-    function createListItem() {
-      const val = inputText.value;
-      if (val.length > 0) {
-        const myObj = {
-          val: genItem(val, false),
-          checked: false,
-        };
-        tasks.push(myObj);
-        saveTask();
-      }
+    function outputEmails() {
+      let emails = findEmail(userInput.value);
+      searchOutput.value = emails;
     }
   </script>
 </html>
