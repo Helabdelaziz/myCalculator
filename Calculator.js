@@ -22,7 +22,7 @@ class Calculator {
   
   function div(x, y) {
     if (x == 0) {
-      throw EvalError("cant divide on 0");
+      throw EvalError("can''t divide on 0");
     } else {
       return x / y;
     }
