@@ -19,22 +19,57 @@
       border-color: #ddd;
       width: 400px;
       display: block;
-      font-size: 1.5em;
+      font-size: 1.8em;
     }
   </style>
   <body>
     <form name="myForm">
       Email:
-      <input type="text" name="email" /><span class="error hide"></span>
+      <input type="text" name="email" /><span class="error"></span>
       <br />Password <input type="password" name="password" /><span
-        class="error hide"
+        class="error"
       ></span>
       <br />Username: <input type="text" name="uname" /><span
-        class="error hide"
+        class="error"
       ></span>
       <br />
       <input type="submit" value="Sign-up" />
     </form>
   </body>
-  <script></script>
+  <script>
+    let email = document.querySelector("input[name=email]");
+    let password = document.querySelector("input[name=password]");
+    let userName = document.querySelector("input[name=uname]");
+    let btn = document.querySelector("input[type=submit]");
+    let err = document.querySelectorAll("span[class=error]");
+
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+    });
+    err.forEach((element) => {
+      element.classList.add("hide");
+    });
+
+    function validateEmail() {
+      let emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
+      let matchEmail = email.value.match(emailRegex);
+      return matchEmail;
+    }
+
+    function validatePassword() {
+      let passwordRegex = /([a-zA-Z0-9])/gi;
+      let matchPassword = password.value.match(passwordRegex);
+      return matchPassword;
+    }
+
+    function handleErr() {
+      if (!validateEmail()) {
+        email.focus();
+        let emailErr = email.nextElementSibling;
+        emailErr.classList.remove("hide");
+        emailErr.classList.add("error");
+        emailErr.innerText = "This email is invalid";
+      }
+    }
+  </script>
 </html>
