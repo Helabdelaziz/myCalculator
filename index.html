@@ -12,19 +12,29 @@
   </body>
   <script>
     let userInput = document.querySelector("textarea[name=txt1]");
-    let btn = document.querySelector("button");
     let searchOutput = document.querySelector("textarea[name=txt2]");
-    let emailRe = /[a-zA-Z0-9]+@+[a-zA-Z0-9].+[a-zA-Z0-9]/;
+    let btn = document.querySelector("button");
+
     btn.addEventListener("click", outputEmails);
 
     function findEmail(input) {
-      let emailRe = /[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+/;
+      let emails = new Set();
+      let emailRe = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
       let emailMathches = input.match(emailRe);
-      return emailMathches[0];
+      emailMathches.forEach((email) => {
+        emails.add(email);
+      });
+      return emails;
     }
+
     function outputEmails() {
+      let tempArr = [];
       let emails = findEmail(userInput.value);
-      searchOutput.value = emails;
+      emails.forEach((email) => {
+        tempArr.push(email);
+      });
+      searchOutput.value = tempArr.join(",");
+      delete tempArr;
     }
   </script>
 </html>
