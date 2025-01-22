@@ -15,10 +15,10 @@
     let btn = document.querySelector("button");
     let searchOutput = document.querySelector("textarea[name=txt2]");
     let emailRe = /[a-zA-Z0-9]+@+[a-zA-Z0-9].+[a-zA-Z0-9]/;
-
     btn.addEventListener("click", outputEmails);
+
     function findEmail(input) {
-      let emailRe = /[a-zA-Z0-9]+@+[a-zA-Z0-9]+.[a-zA-Z0-9]+/;
+      let emailRe = /[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+/;
       let emailMathches = input.match(emailRe);
       return emailMathches[0];
     }
