@@ -5,36 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
+  <style>
+    .hide {
+      display: none;
+    }
+    .error {
+      color: red;
+      font-size: 0.8em;
+      font-family: sans-serif;
+      font-style: italic;
+    }
+    input {
+      border-color: #ddd;
+      width: 400px;
+      display: block;
+      font-size: 1.5em;
+    }
+  </style>
   <body>
-    <textarea rows="2" cols="50" name="txt1"></textarea>
-    <button>Search emails</button>
-    <textarea rows="2" cols="50" name="txt2"></textarea>
+    <form name="myForm">
+      Email:
+      <input type="text" name="email" /><span class="error hide"></span>
+      <br />Password <input type="password" name="password" /><span
+        class="error hide"
+      ></span>
+      <br />Username: <input type="text" name="uname" /><span
+        class="error hide"
+      ></span>
+      <br />
+      <input type="submit" value="Sign-up" />
+    </form>
   </body>
-  <script>
-    let userInput = document.querySelector("textarea[name=txt1]");
-    let searchOutput = document.querySelector("textarea[name=txt2]");
-    let btn = document.querySelector("button");
-
-    btn.addEventListener("click", outputEmails);
-
-    function findEmail(input) {
-      let emails = new Set();
-      let emailRe = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
-      let emailMathches = input.match(emailRe);
-      emailMathches.forEach((email) => {
-        emails.add(email);
-      });
-      return emails;
-    }
-
-    function outputEmails() {
-      let tempArr = [];
-      let emails = findEmail(userInput.value);
-      emails.forEach((email) => {
-        tempArr.push(email);
-      });
-      searchOutput.value = tempArr.join(",");
-      delete tempArr;
-    }
-  </script>
+  <script></script>
 </html>
