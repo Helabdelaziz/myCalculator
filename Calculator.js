@@ -4,7 +4,7 @@ class Calculator {
   }
 }
 function add(x, y) {
-  // this is commment message
+  //  this is commment message
   return y + x;
 }
 
