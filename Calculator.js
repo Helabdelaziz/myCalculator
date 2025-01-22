@@ -2,9 +2,10 @@ class Calculator {
   addition(x, y) {
     return x + y;
   }
+<<<<<<< HEAD
 }
 function add(x, y) {
-  //  this is commment message
+  //this is commment message
   return y + x;
 }
 
@@ -25,5 +26,10 @@ function div(x, y) {
     throw EvalError("can't divide on 0");
   } else {
     return x / y;
+=======
+  function add(x, y) {
+    //this is commment message
+    return y + x;
+>>>>>>> feature/addition
   }
 }
