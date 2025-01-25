@@ -45,7 +45,9 @@
     let formData = {};
 
     btn.addEventListener("click", (e) => {
-      e.preventDefault();
+      if (handleErr()) {
+        e.preventDefault();
+      }
     });
     err.forEach((element) => {
       element.classList.add("hide");
@@ -64,7 +66,9 @@
     }
 
     function handleErr() {
+      let err = false;
       if (!validateEmail()) {
+        err = true;
         email.focus();
         let emailErr = email.nextElementSibling;
         emailErr.classList.remove("hide");
@@ -74,6 +78,7 @@
         formData["email"] = email.value;
       }
       if (!validatePassword()) {
+        err = true;
         password.focus();
         let passwordErr = password.nextElementSibling;
         passwordErr.classList.remove("hide");
@@ -83,6 +88,7 @@
         formData["password"] = password.value;
       }
       if (userName.value == "") {
+        err = true;
         userName.focus();
         let userNameErr = userName.nextElementSibling;
         userNameErr.classList.remove("hide");
@@ -91,6 +97,7 @@
       } else {
         formData["userName"] = userName.value;
       }
+      return err;
     }
   </script>
 </html>
