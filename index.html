@@ -6,98 +6,68 @@
     <title>Document</title>
   </head>
   <style>
-    .hide {
-      display: none;
-    }
-    .error {
-      color: red;
-      font-size: 0.8em;
-      font-family: sans-serif;
+    .corect {
+      color: green;
+      font-size: 1.3em;
       font-style: italic;
     }
-    input {
-      border-color: #ddd;
-      width: 400px;
-      display: block;
-      font-size: 1.8em;
+    .wrong {
+      color: red;
+      font-style: italic;
+      font-size: 1.3em;
     }
   </style>
   <body>
-    <form name="myForm">
-      Email:
-      <input type="text" name="email" /><span class="error"></span>
-      <br />Password <input type="password" name="password" /><span
-        class="error"
-      ></span>
-      <br />Username: <input type="text" name="uname" /><span
-        class="error"
-      ></span>
-      <br />
-      <input type="submit" value="Sign-up" />
-    </form>
+    <span class="val1"></span><span>+</span><span class="val2"></span> =
+    <span><input type="text" name="anwser" /></span><button>check</button>
+    <div class="output"></div>
   </body>
   <script>
-    let email = document.querySelector("input[name=email]");
-    let password = document.querySelector("input[name=password]");
-    let userName = document.querySelector("input[name=uname]");
-    let btn = document.querySelector("input[type=submit]");
-    let err = document.querySelectorAll("span[class=error]");
-    let formData = {};
-
-    btn.addEventListener("click", (e) => {
-      if (handleErr()) {
-        e.preventDefault();
+    function app() {
+      let game = {};
+      let elements = {
+        input1: document.querySelector("span[class=val1]"),
+        input2: document.querySelector("span[class=val2]"),
+        anwserInput: document.querySelector("input[name=anwser]"),
+        btn: document.querySelector("button"),
+        output: document.querySelector("div.output"),
+      };
+      elements["btn"].addEventListener("click", () => {
+        checker()
+          ? elements["output"].classList.add("corect")
+          : elements["output"].classList.add("wrong");
+      });
+      function init() {
+        elements["btn"].addEventListener("click", checker);
+        loadQuestion();
       }
+      function loadQuestion() {
+        let num1 = genRandomNum();
+        let num2 = genRandomNum();
+        game["n1"] = num1;
+        game["n2"] = num2;
+        game["result"] = num1 + num2;
+        elements["input1"].textContent = game["n1"];
+        elements["input2"].textContent = game["n2"];
+      }
+      function checker() {
+        if (elements["anwserInput"].value == game["result"]) {
+          elements["output"].textContent = "Correct anwser Good :)";
+          return true;
+        } else {
+          elements["output"].textContent = "Sorry wrong anwser try again!";
+          return false;
+        }
+      }
+      function genRandomNum() {
+        return Math.floor(Math.random() * 50);
+      }
+      // loadQuestion();
+      init();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      app();
     });
-    err.forEach((element) => {
-      element.classList.add("hide");
-    });
-
-    function validateEmail() {
-      let emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
-      let matchEmail = email.value.match(emailRegex);
-      return matchEmail;
-    }
-
-    function validatePassword() {
-      let passwordRegex = /([a-zA-Z0-9])/gi;
-      let matchPassword = password.value.match(passwordRegex);
-      return matchPassword;
-    }
-
-    function handleErr() {
-      let err = false;
-      if (!validateEmail()) {
-        err = true;
-        email.focus();
-        let emailErr = email.nextElementSibling;
-        emailErr.classList.remove("hide");
-        emailErr.classList.add("error");
-        emailErr.innerText = "This email is invalid";
-      } else {
-        formData["email"] = email.value;
-      }
-      if (!validatePassword()) {
-        err = true;
-        password.focus();
-        let passwordErr = password.nextElementSibling;
-        passwordErr.classList.remove("hide");
-        passwordErr.classList.add("error");
-        passwordErr.innerText = "This password is invalid";
-      } else {
-        formData["password"] = password.value;
-      }
-      if (userName.value == "") {
-        err = true;
-        userName.focus();
-        let userNameErr = userName.nextElementSibling;
-        userNameErr.classList.remove("hide");
-        userNameErr.classList.add("error");
-        userNameErr.innerText = "This userName is invalid";
-      } else {
-        formData["userName"] = userName.value;
-      }
-      return err;
-    }
   </script>
 </html>
