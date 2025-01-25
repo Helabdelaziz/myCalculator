@@ -42,6 +42,7 @@
     let userName = document.querySelector("input[name=uname]");
     let btn = document.querySelector("input[type=submit]");
     let err = document.querySelectorAll("span[class=error]");
+    let formData = {};
 
     btn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -69,6 +70,8 @@
         emailErr.classList.remove("hide");
         emailErr.classList.add("error");
         emailErr.innerText = "This email is invalid";
+      } else {
+        formData["email"] = email.value;
       }
       if (!validatePassword()) {
         password.focus();
@@ -76,6 +79,17 @@
         passwordErr.classList.remove("hide");
         passwordErr.classList.add("error");
         passwordErr.innerText = "This password is invalid";
+      } else {
+        formData["password"] = password.value;
+      }
+      if (userName.value == "") {
+        userName.focus();
+        let userNameErr = userName.nextElementSibling;
+        userNameErr.classList.remove("hide");
+        userNameErr.classList.add("error");
+        userNameErr.innerText = "This userName is invalid";
+      } else {
+        formData["userName"] = userName.value;
       }
     }
   </script>
