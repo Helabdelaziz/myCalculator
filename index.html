@@ -70,6 +70,13 @@
         emailErr.classList.add("error");
         emailErr.innerText = "This email is invalid";
       }
+      if (!validatePassword()) {
+        password.focus();
+        let passwordErr = password.nextElementSibling;
+        passwordErr.classList.remove("hide");
+        passwordErr.classList.add("error");
+        passwordErr.innerText = "This password is invalid";
+      }
     }
   </script>
 </html>
