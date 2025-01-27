@@ -10,11 +10,13 @@
       color: green;
       font-size: 1.3em;
       font-style: italic;
+      display: block;
     }
     .wrong {
       color: red;
       font-style: italic;
       font-size: 1.3em;
+      display: block;
     }
   </style>
   <body>
@@ -23,6 +25,10 @@
     <div class="output"></div>
   </body>
   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      app();
+    });
+
     function app() {
       let game = {};
       let elements = {
@@ -32,11 +38,6 @@
         btn: document.querySelector("button"),
         output: document.querySelector("div.output"),
       };
-      elements["btn"].addEventListener("click", () => {
-        checker()
-          ? elements["output"].classList.add("corect")
-          : elements["output"].classList.add("wrong");
-      });
       function init() {
         elements["btn"].addEventListener("click", checker);
         loadQuestion();
@@ -50,24 +51,25 @@
         elements["input1"].textContent = game["n1"];
         elements["input2"].textContent = game["n2"];
       }
+
       function checker() {
+        let e = document.createElement("span");
+        e.innerText = `${game["n1"]} + ${game["n2"]} = ${game["result"]}`;
         if (elements["anwserInput"].value == game["result"]) {
-          elements["output"].textContent = "Correct anwser Good :)";
-          return true;
+          e.classList.add("corect");
         } else {
-          elements["output"].textContent = "Sorry wrong anwser try again!";
-          return false;
+          e.classList.add("wrong");
         }
+        elements["output"].appendChild(e);
+        elements["anwserInput"].value = "";
+        loadQuestion();
       }
+
       function genRandomNum() {
         return Math.floor(Math.random() * 50);
       }
       // loadQuestion();
       init();
     }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      app();
-    });
   </script>
 </html>
