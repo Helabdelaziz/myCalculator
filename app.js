@@ -1,3 +1,3 @@
-class app {
-  constructor() {}
+function hello(name) {
+  return `hello ${name}`;
 }
